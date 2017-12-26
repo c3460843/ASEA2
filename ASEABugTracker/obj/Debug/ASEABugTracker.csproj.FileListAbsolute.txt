@@ -1,0 +1,11 @@
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\bin\Debug\ASEABugTracker.exe.config
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\bin\Debug\ASEABugTracker.exe
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\bin\Debug\ASEABugTracker.pdb
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.csprojResolveAssemblyReference.cache
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.Properties.Resources.resources
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.csproj.GenerateResource.Cache
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.exe
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.pdb
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.Form1.resources
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\bin\Debug\nunit.framework.xml
