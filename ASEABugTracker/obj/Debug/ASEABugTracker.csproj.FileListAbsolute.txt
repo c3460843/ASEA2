@@ -7,5 +7,8 @@ C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTrack
 C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.exe
 C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.pdb
-C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.Form1.resources
 C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\bin\Debug\nunit.framework.xml
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.Main.resources
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.Login.resources
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.NewBugForm.resources
+C:\Users\Admin\source\repos\ASEABugTracker\ASEABugTracker\obj\Debug\ASEABugTracker.OpenBug.resources
