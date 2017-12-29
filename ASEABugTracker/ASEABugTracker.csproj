@@ -99,7 +99,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="bin\Debug\CPP-Mode.xshd" />
     <None Include="bin\Debug\CSharp-Mode.xshd" />
+    <None Include="bin\Debug\HTML-Mode.xshd" />
+    <None Include="bin\Debug\Java-Mode.xshd" />
+    <None Include="bin\Debug\JavaScript-Mode.xshd" />
+    <None Include="bin\Debug\PHP-Mode.xshd" />
+    <None Include="bin\Debug\XML-Mode.xshd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

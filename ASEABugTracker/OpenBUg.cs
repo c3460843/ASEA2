@@ -62,7 +62,7 @@ namespace ASEABugTracker
             String[] seletectItemArray = selectedItem.Split('.');
             sessionOpenBug = seletectItemArray[0];
             this.Hide();
-            Main.ActiveForm.Close();
+            Main.ActiveForm.Hide();
             Main session = new Main();
             session.Show();
 

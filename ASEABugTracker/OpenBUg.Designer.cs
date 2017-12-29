@@ -87,10 +87,20 @@
             // comboBoxLanguage
             // 
             this.comboBoxLanguage.FormattingEnabled = true;
+            this.comboBoxLanguage.Items.AddRange(new object[] {
+            "All Languages",
+            "C++",
+            "C#",
+            "HTML",
+            "Java",
+            "Java Script",
+            "PHP",
+            "XML"});
             this.comboBoxLanguage.Location = new System.Drawing.Point(18, 88);
             this.comboBoxLanguage.Name = "comboBoxLanguage";
             this.comboBoxLanguage.Size = new System.Drawing.Size(196, 21);
             this.comboBoxLanguage.TabIndex = 8;
+            this.comboBoxLanguage.Text = "All Languages";
             // 
             // OpenBug
             // 

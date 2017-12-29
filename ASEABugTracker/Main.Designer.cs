@@ -53,31 +53,46 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.submitAuditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelHyphen1 = new System.Windows.Forms.Label();
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelLanguage = new System.Windows.Forms.Label();
+            this.txtLanguage = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBoxInput
             // 
+            this.listBoxInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxInput.BackColor = System.Drawing.SystemColors.Window;
             this.listBoxInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBoxInput.Dock = System.Windows.Forms.DockStyle.Right;
             this.listBoxInput.FormattingEnabled = true;
-            this.listBoxInput.Location = new System.Drawing.Point(764, 24);
+            this.listBoxInput.Location = new System.Drawing.Point(-1, 22);
             this.listBoxInput.Margin = new System.Windows.Forms.Padding(0);
+            this.listBoxInput.MaximumSize = new System.Drawing.Size(300, 0);
+            this.listBoxInput.MinimumSize = new System.Drawing.Size(300, 184);
             this.listBoxInput.Name = "listBoxInput";
             this.listBoxInput.ScrollAlwaysVisible = true;
-            this.listBoxInput.Size = new System.Drawing.Size(180, 205);
+            this.listBoxInput.Size = new System.Drawing.Size(300, 210);
             this.listBoxInput.TabIndex = 1;
+            this.listBoxInput.Tag = "";
+            this.listBoxInput.SelectedIndexChanged += new System.EventHandler(this.listBoxInput_SelectedIndexChanged);
             // 
             // txtBugId
             // 
             this.txtBugId.BackColor = System.Drawing.SystemColors.Control;
             this.txtBugId.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBugId.Location = new System.Drawing.Point(69, 32);
+            this.txtBugId.Location = new System.Drawing.Point(71, 10);
             this.txtBugId.Name = "txtBugId";
             this.txtBugId.ReadOnly = true;
             this.txtBugId.Size = new System.Drawing.Size(40, 13);
@@ -88,7 +103,7 @@
             this.txtUsername.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsername.Location = new System.Drawing.Point(822, 5);
+            this.txtUsername.Location = new System.Drawing.Point(81, 6);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.ReadOnly = true;
             this.txtUsername.Size = new System.Drawing.Size(110, 13);
@@ -98,17 +113,17 @@
             // 
             this.txtApplication.BackColor = System.Drawing.SystemColors.Control;
             this.txtApplication.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtApplication.Location = new System.Drawing.Point(69, 57);
+            this.txtApplication.Location = new System.Drawing.Point(71, 35);
             this.txtApplication.Name = "txtApplication";
             this.txtApplication.ReadOnly = true;
-            this.txtApplication.Size = new System.Drawing.Size(94, 13);
+            this.txtApplication.Size = new System.Drawing.Size(524, 13);
             this.txtApplication.TabIndex = 4;
             // 
             // labelBugID
             // 
             this.labelBugID.AutoSize = true;
             this.labelBugID.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBugID.Location = new System.Drawing.Point(30, 33);
+            this.labelBugID.Location = new System.Drawing.Point(32, 11);
             this.labelBugID.Name = "labelBugID";
             this.labelBugID.Size = new System.Drawing.Size(33, 12);
             this.labelBugID.TabIndex = 5;
@@ -119,7 +134,7 @@
             this.labelUsername.AutoSize = true;
             this.labelUsername.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUsername.Location = new System.Drawing.Point(762, 5);
+            this.labelUsername.Location = new System.Drawing.Point(17, 6);
             this.labelUsername.Name = "labelUsername";
             this.labelUsername.Size = new System.Drawing.Size(59, 12);
             this.labelUsername.TabIndex = 6;
@@ -129,7 +144,7 @@
             // 
             this.labelApplication.AutoSize = true;
             this.labelApplication.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelApplication.Location = new System.Drawing.Point(12, 58);
+            this.labelApplication.Location = new System.Drawing.Point(14, 36);
             this.labelApplication.Name = "labelApplication";
             this.labelApplication.Size = new System.Drawing.Size(51, 12);
             this.labelApplication.TabIndex = 7;
@@ -139,71 +154,69 @@
             // 
             this.txtSymptom.BackColor = System.Drawing.SystemColors.Control;
             this.txtSymptom.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtSymptom.Location = new System.Drawing.Point(69, 81);
+            this.txtSymptom.Location = new System.Drawing.Point(71, 83);
             this.txtSymptom.Name = "txtSymptom";
             this.txtSymptom.ReadOnly = true;
-            this.txtSymptom.Size = new System.Drawing.Size(94, 13);
+            this.txtSymptom.Size = new System.Drawing.Size(524, 13);
             this.txtSymptom.TabIndex = 10;
             // 
             // txtCause
             // 
             this.txtCause.BackColor = System.Drawing.SystemColors.Control;
             this.txtCause.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCause.Location = new System.Drawing.Point(69, 107);
+            this.txtCause.Location = new System.Drawing.Point(71, 109);
             this.txtCause.Name = "txtCause";
             this.txtCause.ReadOnly = true;
-            this.txtCause.Size = new System.Drawing.Size(94, 13);
+            this.txtCause.Size = new System.Drawing.Size(524, 13);
             this.txtCause.TabIndex = 11;
             // 
             // txtClass
             // 
             this.txtClass.BackColor = System.Drawing.SystemColors.Control;
             this.txtClass.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtClass.Location = new System.Drawing.Point(69, 132);
+            this.txtClass.Location = new System.Drawing.Point(71, 134);
             this.txtClass.Name = "txtClass";
             this.txtClass.ReadOnly = true;
-            this.txtClass.Size = new System.Drawing.Size(94, 13);
+            this.txtClass.Size = new System.Drawing.Size(524, 13);
             this.txtClass.TabIndex = 12;
             // 
             // txtMethod
             // 
             this.txtMethod.BackColor = System.Drawing.SystemColors.Control;
             this.txtMethod.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMethod.Location = new System.Drawing.Point(69, 158);
+            this.txtMethod.Location = new System.Drawing.Point(71, 160);
             this.txtMethod.Name = "txtMethod";
             this.txtMethod.ReadOnly = true;
-            this.txtMethod.Size = new System.Drawing.Size(94, 13);
+            this.txtMethod.Size = new System.Drawing.Size(524, 13);
             this.txtMethod.TabIndex = 13;
             // 
             // txtLineNoStart
             // 
             this.txtLineNoStart.BackColor = System.Drawing.SystemColors.Control;
             this.txtLineNoStart.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLineNoStart.Location = new System.Drawing.Point(69, 186);
+            this.txtLineNoStart.Location = new System.Drawing.Point(71, 188);
             this.txtLineNoStart.Name = "txtLineNoStart";
             this.txtLineNoStart.ReadOnly = true;
             this.txtLineNoStart.Size = new System.Drawing.Size(40, 13);
             this.txtLineNoStart.TabIndex = 14;
-            this.txtLineNoStart.Text = "1";
             this.txtLineNoStart.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtLineNoEnd
             // 
             this.txtLineNoEnd.BackColor = System.Drawing.SystemColors.Control;
             this.txtLineNoEnd.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLineNoEnd.Location = new System.Drawing.Point(123, 186);
+            this.txtLineNoEnd.Location = new System.Drawing.Point(125, 188);
             this.txtLineNoEnd.Name = "txtLineNoEnd";
             this.txtLineNoEnd.ReadOnly = true;
             this.txtLineNoEnd.Size = new System.Drawing.Size(40, 13);
             this.txtLineNoEnd.TabIndex = 15;
-            this.txtLineNoEnd.Text = "2";
             this.txtLineNoEnd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // labelClass
             // 
             this.labelClass.AutoSize = true;
             this.labelClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelClass.Location = new System.Drawing.Point(34, 133);
+            this.labelClass.Location = new System.Drawing.Point(36, 135);
             this.labelClass.Name = "labelClass";
             this.labelClass.Size = new System.Drawing.Size(29, 12);
             this.labelClass.TabIndex = 16;
@@ -213,7 +226,7 @@
             // 
             this.labelMethod.AutoSize = true;
             this.labelMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMethod.Location = new System.Drawing.Point(26, 159);
+            this.labelMethod.Location = new System.Drawing.Point(28, 161);
             this.labelMethod.Name = "labelMethod";
             this.labelMethod.Size = new System.Drawing.Size(37, 12);
             this.labelMethod.TabIndex = 17;
@@ -224,7 +237,7 @@
             this.labelLineNoStart.AutoSize = true;
             this.labelLineNoStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLineNoStart.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.labelLineNoStart.Location = new System.Drawing.Point(77, 206);
+            this.labelLineNoStart.Location = new System.Drawing.Point(79, 208);
             this.labelLineNoStart.Name = "labelLineNoStart";
             this.labelLineNoStart.Size = new System.Drawing.Size(25, 12);
             this.labelLineNoStart.TabIndex = 18;
@@ -235,7 +248,7 @@
             this.labelLineNoEnd.AutoSize = true;
             this.labelLineNoEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLineNoEnd.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.labelLineNoEnd.Location = new System.Drawing.Point(133, 206);
+            this.labelLineNoEnd.Location = new System.Drawing.Point(135, 208);
             this.labelLineNoEnd.Name = "labelLineNoEnd";
             this.labelLineNoEnd.Size = new System.Drawing.Size(21, 12);
             this.labelLineNoEnd.TabIndex = 19;
@@ -245,7 +258,7 @@
             // 
             this.labelSymptom.AutoSize = true;
             this.labelSymptom.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSymptom.Location = new System.Drawing.Point(18, 82);
+            this.labelSymptom.Location = new System.Drawing.Point(20, 84);
             this.labelSymptom.Name = "labelSymptom";
             this.labelSymptom.Size = new System.Drawing.Size(45, 12);
             this.labelSymptom.TabIndex = 20;
@@ -255,7 +268,7 @@
             // 
             this.labelCause.AutoSize = true;
             this.labelCause.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCause.Location = new System.Drawing.Point(31, 108);
+            this.labelCause.Location = new System.Drawing.Point(33, 110);
             this.labelCause.Name = "labelCause";
             this.labelCause.Size = new System.Drawing.Size(32, 12);
             this.labelCause.TabIndex = 21;
@@ -266,7 +279,7 @@
             this.labelLineTitle.AutoSize = true;
             this.labelLineTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLineTitle.ForeColor = System.Drawing.Color.Black;
-            this.labelLineTitle.Location = new System.Drawing.Point(6, 187);
+            this.labelLineTitle.Location = new System.Drawing.Point(8, 189);
             this.labelLineTitle.Name = "labelLineTitle";
             this.labelLineTitle.Size = new System.Drawing.Size(57, 12);
             this.labelLineTitle.TabIndex = 22;
@@ -274,13 +287,16 @@
             // 
             // txtCode
             // 
+            this.txtCode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCode.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtCode.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.txtCode.IsReadOnly = false;
-            this.txtCode.Location = new System.Drawing.Point(0, 229);
+            this.txtCode.Location = new System.Drawing.Point(0, 257);
             this.txtCode.Margin = new System.Windows.Forms.Padding(0);
+            this.txtCode.MinimumSize = new System.Drawing.Size(100, 300);
             this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(944, 372);
+            this.txtCode.Size = new System.Drawing.Size(920, 471);
             this.txtCode.TabIndex = 24;
             this.txtCode.Load += new System.EventHandler(this.txtCode_Load);
             // 
@@ -291,7 +307,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(944, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(920, 24);
             this.menuStrip1.TabIndex = 25;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -300,6 +316,8 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
+            this.submitAuditToolStripMenuItem,
+            this.logoutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -309,23 +327,39 @@
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.newToolStripMenuItem.Text = "New (Bug)";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.openToolStripMenuItem.Text = "Open (Bug)";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // submitAuditToolStripMenuItem
+            // 
+            this.submitAuditToolStripMenuItem.Name = "submitAuditToolStripMenuItem";
+            this.submitAuditToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.submitAuditToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.submitAuditToolStripMenuItem.Text = "Submit (Audit)";
+            this.submitAuditToolStripMenuItem.Click += new System.EventHandler(this.submitAuditToolStripMenuItem_Click);
+            // 
+            // logoutToolStripMenuItem
+            // 
+            this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
+            this.logoutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.logoutToolStripMenuItem.Text = "Logout";
+            this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -339,62 +373,120 @@
             // 
             this.labelHyphen1.AutoSize = true;
             this.labelHyphen1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHyphen1.Location = new System.Drawing.Point(111, 183);
+            this.labelHyphen1.Location = new System.Drawing.Point(113, 185);
             this.labelHyphen1.Name = "labelHyphen1";
             this.labelHyphen1.Size = new System.Drawing.Size(11, 15);
             this.labelHyphen1.TabIndex = 26;
             this.labelHyphen1.Text = "-";
             // 
-            // btnAdd
+            // panel1
             // 
-            this.btnAdd.AccessibleDescription = "";
-            this.btnAdd.AccessibleName = "";
-            this.btnAdd.Location = new System.Drawing.Point(684, 199);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(76, 26);
-            this.btnAdd.TabIndex = 0;
-            this.btnAdd.Text = "Submit";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.button1_Click);
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.txtLanguage);
+            this.panel1.Controls.Add(this.labelLanguage);
+            this.panel1.Controls.Add(this.labelHyphen1);
+            this.panel1.Controls.Add(this.txtApplication);
+            this.panel1.Controls.Add(this.labelLineTitle);
+            this.panel1.Controls.Add(this.txtBugId);
+            this.panel1.Controls.Add(this.labelCause);
+            this.panel1.Controls.Add(this.labelBugID);
+            this.panel1.Controls.Add(this.labelSymptom);
+            this.panel1.Controls.Add(this.labelApplication);
+            this.panel1.Controls.Add(this.labelLineNoEnd);
+            this.panel1.Controls.Add(this.txtSymptom);
+            this.panel1.Controls.Add(this.labelLineNoStart);
+            this.panel1.Controls.Add(this.txtCause);
+            this.panel1.Controls.Add(this.labelMethod);
+            this.panel1.Controls.Add(this.txtClass);
+            this.panel1.Controls.Add(this.labelClass);
+            this.panel1.Controls.Add(this.txtMethod);
+            this.panel1.Controls.Add(this.txtLineNoEnd);
+            this.panel1.Controls.Add(this.txtLineNoStart);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.MinimumSize = new System.Drawing.Size(205, 200);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(618, 233);
+            this.panel1.TabIndex = 27;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.listBoxInput);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(620, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(300, 233);
+            this.panel2.TabIndex = 29;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 12);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Audit List:";
+            // 
+            // labelLanguage
+            // 
+            this.labelLanguage.AutoSize = true;
+            this.labelLanguage.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLanguage.ForeColor = System.Drawing.Color.Black;
+            this.labelLanguage.Location = new System.Drawing.Point(20, 60);
+            this.labelLanguage.Name = "labelLanguage";
+            this.labelLanguage.Size = new System.Drawing.Size(45, 12);
+            this.labelLanguage.TabIndex = 27;
+            this.labelLanguage.Text = "Language";
+            // 
+            // txtLanguage
+            // 
+            this.txtLanguage.BackColor = System.Drawing.SystemColors.Control;
+            this.txtLanguage.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtLanguage.Location = new System.Drawing.Point(71, 59);
+            this.txtLanguage.Name = "txtLanguage";
+            this.txtLanguage.ReadOnly = true;
+            this.txtLanguage.Size = new System.Drawing.Size(524, 13);
+            this.txtLanguage.TabIndex = 28;
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel3.Controls.Add(this.labelUsername);
+            this.panel3.Controls.Add(this.txtUsername);
+            this.panel3.Location = new System.Drawing.Point(723, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(197, 24);
+            this.panel3.TabIndex = 29;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(944, 601);
-            this.Controls.Add(this.listBoxInput);
-            this.Controls.Add(this.labelHyphen1);
-            this.Controls.Add(this.labelLineTitle);
-            this.Controls.Add(this.labelCause);
-            this.Controls.Add(this.labelSymptom);
-            this.Controls.Add(this.labelLineNoEnd);
-            this.Controls.Add(this.labelLineNoStart);
-            this.Controls.Add(this.labelMethod);
-            this.Controls.Add(this.labelClass);
-            this.Controls.Add(this.txtLineNoEnd);
-            this.Controls.Add(this.txtLineNoStart);
-            this.Controls.Add(this.txtMethod);
-            this.Controls.Add(this.txtClass);
-            this.Controls.Add(this.txtCause);
-            this.Controls.Add(this.txtSymptom);
-            this.Controls.Add(this.labelApplication);
-            this.Controls.Add(this.labelUsername);
-            this.Controls.Add(this.labelBugID);
-            this.Controls.Add(this.txtApplication);
-            this.Controls.Add(this.txtUsername);
-            this.Controls.Add(this.txtBugId);
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.menuStrip1);
+            this.ClientSize = new System.Drawing.Size(920, 728);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtCode);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(960, 640);
+            this.MinimumSize = new System.Drawing.Size(936, 767);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bug Tracker";
-            this.Load += new System.EventHandler(this.Main_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -429,7 +521,14 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Label labelHyphen1;
-        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem submitAuditToolStripMenuItem;
+        private System.Windows.Forms.TextBox txtLanguage;
+        private System.Windows.Forms.Label labelLanguage;
+        private System.Windows.Forms.Panel panel3;
     }
 }
 

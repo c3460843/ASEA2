@@ -49,6 +49,8 @@
             this.labelAuthor = new System.Windows.Forms.Label();
             this.txtAuthorNew = new System.Windows.Forms.TextBox();
             this.buttonNBCancel = new System.Windows.Forms.Button();
+            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelHyphen1
@@ -251,12 +253,41 @@
             this.buttonNBCancel.UseVisualStyleBackColor = true;
             this.buttonNBCancel.Click += new System.EventHandler(this.buttonNBCancel_Click);
             // 
+            // comboBoxLanguage
+            // 
+            this.comboBoxLanguage.FormattingEnabled = true;
+            this.comboBoxLanguage.Items.AddRange(new object[] {
+            "C++",
+            "C#",
+            "HTML",
+            "Java",
+            "Java Script",
+            "PHP",
+            "XML"});
+            this.comboBoxLanguage.Location = new System.Drawing.Point(543, 1);
+            this.comboBoxLanguage.Name = "comboBoxLanguage";
+            this.comboBoxLanguage.Size = new System.Drawing.Size(77, 21);
+            this.comboBoxLanguage.TabIndex = 50;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(492, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 12);
+            this.label1.TabIndex = 51;
+            this.label1.Text = "Language";
+            // 
             // NewBugForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(624, 441);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboBoxLanguage);
             this.Controls.Add(this.buttonNBCancel);
             this.Controls.Add(this.txtAuthorNew);
             this.Controls.Add(this.labelAuthor);
@@ -316,5 +347,7 @@
         private System.Windows.Forms.Label labelAuthor;
         private System.Windows.Forms.TextBox txtAuthorNew;
         private System.Windows.Forms.Button buttonNBCancel;
+        private System.Windows.Forms.ComboBox comboBoxLanguage;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -9,32 +9,36 @@ namespace ASEABugTracker
     public partial class Main : Form
     {
         SqlConnection mainConnection;
+        String language;
 
         public Main()
         {
             InitializeComponent();
+            Session();   
+        }
+
+        public void Session()
+        {
             txtUsername.Text = Login.sessionUsername;
             txtBugId.Text = OpenBug.sessionOpenBug;
             if (txtBugId.Text != "")
             {
-                populate();
+                Populate();
             }
         }
-
         
 
-        public void populate()
+        public void Populate()
         {
 
             mainConnection = new SqlConnection
                 (@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = 
                 C:\Users\Admin\Documents\ASEABugTrackDB.mdf;");
-            String selBugCommand = "SELECT Username, Application, Symptom, Cause, Class, Method, CodeBlock, LineNoStart, LineNoEnd FROM BugTable WHERE BugId = " + txtBugId.Text;
+            String selBugCommand = "SELECT Username, Application, Symptom, Cause, Class, Method, CodeBlock, LineNoStart, LineNoEnd, Language FROM BugTable WHERE BugId = " + txtBugId.Text;
             SqlCommand sqlBugCommand = new SqlCommand(selBugCommand, mainConnection);
 
-            String selVerCommand = "SELECT EntryNo, Username FROM VersionTable WHERE BugId = " + txtBugId.Text;
+            String selVerCommand = "SELECT EntryNo, Username, EntryDateTime FROM VersionTable WHERE BugId = " + txtBugId.Text;
             SqlCommand sqlVerCommand = new SqlCommand(selVerCommand, mainConnection);
-            
 
             try
             {
@@ -53,6 +57,7 @@ namespace ASEABugTracker
                     txtCode.Text = bugSqlDataReader.GetString(6);
                     txtLineNoStart.Text = bugSqlDataReader.GetInt32(7).ToString();
                     txtLineNoEnd.Text = bugSqlDataReader.GetInt32(8).ToString();
+                    txtLanguage.Text = bugSqlDataReader.GetString(9);
                 }
 
                 bugSqlDataReader.Close();
@@ -63,7 +68,7 @@ namespace ASEABugTracker
                 while (verSqlDataReader.Read())
                 {
 
-                    listBoxInput.Items.Add(verSqlDataReader["EntryNo"] + " " + verSqlDataReader["Username"]);
+                    listBoxInput.Items.Add("["+txtBugId.Text+"."+verSqlDataReader["EntryNo"]+"] created by " + verSqlDataReader["Username"]+" on "+ verSqlDataReader["EntryDateTime"]);
 
                 }
                 verSqlDataReader.Close();
@@ -77,22 +82,13 @@ namespace ASEABugTracker
             }
 
         }
-
-
-
-        public void cleartxtBoxes()
-        {
-            txtBugId.Text = txtApplication.Text = txtSymptom.Text = txtCause.Text = txtClass.Text = txtMethod.Text = txtCode.Text = txtLineNoStart.Text = txtLineNoEnd.Text = "";
-        }
  
-        public bool checkInputs()
+        public bool CheckInput()
         {
             bool rtnvalue = true;
 
-            if (
-                string.IsNullOrEmpty(txtCode.Text) ||
-                string.IsNullOrEmpty(txtLineNoStart.Text) ||
-                string.IsNullOrEmpty(txtLineNoEnd.Text))
+            if (string.IsNullOrEmpty(txtCode.Text))
+
             {
                 MessageBox.Show("Error: code block empty.");
                 rtnvalue = false;
@@ -103,7 +99,7 @@ namespace ASEABugTracker
         }
 
 
-        public void insertRecord(String isfixedbool, String entrydatetime, String alteredcode, String username, String bugid, String entryno, String commandString)
+        public void InsertRecord(String isfixedbool, String sqlFormatDateTimeNow, String alteredcode, String username, String bugid, String entryno, String commandString)
         {
             try
             {
@@ -113,7 +109,7 @@ namespace ASEABugTracker
                 mainConnection.Open();
                 SqlCommand cmdInsert = new SqlCommand(commandString, mainConnection);
                 cmdInsert.Parameters.AddWithValue("@Fixed", isfixedbool);
-                cmdInsert.Parameters.AddWithValue("@EntryDateTime", entrydatetime);
+                cmdInsert.Parameters.AddWithValue("@EntryDateTime", sqlFormatDateTimeNow);
                 cmdInsert.Parameters.AddWithValue("@AlteredCode", alteredcode);
                 cmdInsert.Parameters.AddWithValue("@Username", username);
                 cmdInsert.Parameters.AddWithValue("@BugId", bugid);
@@ -126,25 +122,9 @@ namespace ASEABugTracker
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (checkInputs())
-            {
-
-                String commandString = "INSERT INTO VersionTable(Fixed, EntryDateTime, AlteredCode, Username, BugId, EntryNo) VALUES (@VersionId, @Fixed, @EntryDateTime, @AlteredCode, @Username, @BugId, @EntryNo)";
-
-                insertRecord("", "", txtCode.Text, Login.sessionUsername, txtBugId.Text, listBoxInput.Items.Count + 1.ToString(), commandString);
-                populate();
-                //cleartxtBoxes();
-            }
-
-        }
-
-
-
         private void txtCode_Load(object sender, EventArgs e)
         {
-            String language = "C#";
+            language = txtLanguage.Text;
             String dir = Application.StartupPath;
             FileSyntaxModeProvider fsmp;
             if (Directory.Exists(dir))
@@ -173,9 +153,55 @@ namespace ASEABugTracker
             ob.Show();
         }
 
-        private void Main_Load(object sender, EventArgs e)
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Close();
+            Login session = new Login();
+            OpenBug.sessionOpenBug = "";
+            session.Show();
 
+        }
+
+        private void listBoxInput_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mainConnection = new SqlConnection
+                (@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = 
+                C:\Users\Admin\Documents\ASEABugTrackDB.mdf;");
+            String selCodeCommand = "SELECT AlteredCode FROM VersionTable WHERE EntryNo = " + listBoxInput.SelectedIndex + "AND BugId =" + OpenBug.sessionOpenBug;
+            SqlCommand sqlCodeCommand = new SqlCommand(selCodeCommand, mainConnection);
+
+            try
+            {
+                mainConnection.Open();
+
+                SqlDataReader codeSqlDataReader = sqlCodeCommand.ExecuteReader();
+
+                while (codeSqlDataReader.Read())
+                {
+                    txtCode.Text = codeSqlDataReader.GetString(0);
+                }
+
+                codeSqlDataReader.Close();
+            }
+
+            catch (SqlException ex)
+            {
+
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+
+        private void submitAuditToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CheckInput())
+            {
+
+                String commandString = "INSERT INTO VersionTable(Fixed, EntryDateTime, AlteredCode, Username, BugId, EntryNo) VALUES (@Fixed, @EntryDateTime, @AlteredCode, @Username, @BugId, @EntryNo)";
+
+                InsertRecord("", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), txtCode.Text, Login.sessionUsername, txtBugId.Text, listBoxInput.Items.Count.ToString(), commandString);
+                Populate();
+            }
         }
     }
 }
