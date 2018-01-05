@@ -87,7 +87,7 @@ namespace ASEABugTracker
                 string.IsNullOrEmpty(txtCodeNew.Text) ||
                 string.IsNullOrEmpty(txtLineNoStartNew.Text) ||
                 string.IsNullOrEmpty(txtLineNoEndNew.Text) ||
-                comboBoxLanguage == null)
+                comboBoxLanguage.Text == "")
             {
                 MessageBox.Show("Error: Please check your inputs");
                 rtnvalue = false;

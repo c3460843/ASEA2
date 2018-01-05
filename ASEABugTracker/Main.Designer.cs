@@ -53,17 +53,22 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.submitAuditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelHyphen1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonFix = new System.Windows.Forms.Button();
+            this.txtLanguage = new System.Windows.Forms.TextBox();
+            this.labelLanguage = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.labelLanguage = new System.Windows.Forms.Label();
-            this.txtLanguage = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.labelFix = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -79,8 +84,8 @@
             this.listBoxInput.FormattingEnabled = true;
             this.listBoxInput.Location = new System.Drawing.Point(-1, 22);
             this.listBoxInput.Margin = new System.Windows.Forms.Padding(0);
-            this.listBoxInput.MaximumSize = new System.Drawing.Size(300, 0);
-            this.listBoxInput.MinimumSize = new System.Drawing.Size(300, 184);
+            this.listBoxInput.MaximumSize = new System.Drawing.Size(300, 2);
+            this.listBoxInput.MinimumSize = new System.Drawing.Size(300, 210);
             this.listBoxInput.Name = "listBoxInput";
             this.listBoxInput.ScrollAlwaysVisible = true;
             this.listBoxInput.Size = new System.Drawing.Size(300, 210);
@@ -287,7 +292,6 @@
             // 
             // txtCode
             // 
-            this.txtCode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCode.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtCode.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -316,8 +320,11 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
+            this.toolStripSeparator3,
             this.submitAuditToolStripMenuItem,
+            this.toolStripSeparator1,
             this.logoutToolStripMenuItem,
+            this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -339,6 +346,11 @@
             this.openToolStripMenuItem.Text = "Open (Bug)";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(189, 6);
+            // 
             // submitAuditToolStripMenuItem
             // 
             this.submitAuditToolStripMenuItem.Name = "submitAuditToolStripMenuItem";
@@ -347,6 +359,11 @@
             this.submitAuditToolStripMenuItem.Text = "Submit (Audit)";
             this.submitAuditToolStripMenuItem.Click += new System.EventHandler(this.submitAuditToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(189, 6);
+            // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
@@ -354,6 +371,11 @@
             this.logoutToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.logoutToolStripMenuItem.Text = "Logout";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -382,6 +404,8 @@
             // panel1
             // 
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.labelFix);
+            this.panel1.Controls.Add(this.buttonFix);
             this.panel1.Controls.Add(this.txtLanguage);
             this.panel1.Controls.Add(this.labelLanguage);
             this.panel1.Controls.Add(this.labelHyphen1);
@@ -404,32 +428,31 @@
             this.panel1.Controls.Add(this.txtLineNoStart);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.MaximumSize = new System.Drawing.Size(1000, 0);
             this.panel1.MinimumSize = new System.Drawing.Size(205, 200);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(618, 233);
             this.panel1.TabIndex = 27;
             // 
-            // panel2
+            // buttonFix
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.listBoxInput);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(620, 24);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(300, 233);
-            this.panel2.TabIndex = 29;
+            this.buttonFix.Location = new System.Drawing.Point(536, 203);
+            this.buttonFix.Name = "buttonFix";
+            this.buttonFix.Size = new System.Drawing.Size(75, 23);
+            this.buttonFix.TabIndex = 30;
+            this.buttonFix.Text = "Change";
+            this.buttonFix.UseVisualStyleBackColor = true;
+            this.buttonFix.Click += new System.EventHandler(this.buttonFix_Click);
             // 
-            // label1
+            // txtLanguage
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 12);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Audit List:";
+            this.txtLanguage.BackColor = System.Drawing.SystemColors.Control;
+            this.txtLanguage.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtLanguage.Location = new System.Drawing.Point(71, 59);
+            this.txtLanguage.Name = "txtLanguage";
+            this.txtLanguage.ReadOnly = true;
+            this.txtLanguage.Size = new System.Drawing.Size(524, 13);
+            this.txtLanguage.TabIndex = 28;
             // 
             // labelLanguage
             // 
@@ -442,15 +465,28 @@
             this.labelLanguage.TabIndex = 27;
             this.labelLanguage.Text = "Language";
             // 
-            // txtLanguage
+            // panel2
             // 
-            this.txtLanguage.BackColor = System.Drawing.SystemColors.Control;
-            this.txtLanguage.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLanguage.Location = new System.Drawing.Point(71, 59);
-            this.txtLanguage.Name = "txtLanguage";
-            this.txtLanguage.ReadOnly = true;
-            this.txtLanguage.Size = new System.Drawing.Size(524, 13);
-            this.txtLanguage.TabIndex = 28;
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.listBoxInput);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(620, 24);
+            this.panel2.MaximumSize = new System.Drawing.Size(300, 233);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(300, 233);
+            this.panel2.TabIndex = 29;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 12);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Audit List:";
             // 
             // panel3
             // 
@@ -462,6 +498,19 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(197, 24);
             this.panel3.TabIndex = 29;
+            // 
+            // labelFix
+            // 
+            this.labelFix.BackColor = System.Drawing.SystemColors.Control;
+            this.labelFix.Cursor = System.Windows.Forms.Cursors.Default;
+            this.labelFix.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFix.Location = new System.Drawing.Point(537, 181);
+            this.labelFix.Name = "labelFix";
+            this.labelFix.ReadOnly = true;
+            this.labelFix.Size = new System.Drawing.Size(73, 20);
+            this.labelFix.TabIndex = 31;
+            this.labelFix.Text = "Unfixed";
+            this.labelFix.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Main
             // 
@@ -529,6 +578,11 @@
         private System.Windows.Forms.TextBox txtLanguage;
         private System.Windows.Forms.Label labelLanguage;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.Button buttonFix;
+        private System.Windows.Forms.TextBox labelFix;
     }
 }
 

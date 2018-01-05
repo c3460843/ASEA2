@@ -21,20 +21,22 @@ namespace ASEABugTracker
         {
             txtUsername.Text = Login.sessionUsername;
             txtBugId.Text = OpenBug.sessionOpenBug;
+            buttonFix.Enabled = false;
+            submitAuditToolStripMenuItem.Enabled = false;
             if (txtBugId.Text != "")
             {
                 Populate();
+                submitAuditToolStripMenuItem.Enabled = true;
             }
         }
         
 
         public void Populate()
         {
-
             mainConnection = new SqlConnection
                 (@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = 
                 C:\Users\Admin\Documents\ASEABugTrackDB.mdf;");
-            String selBugCommand = "SELECT Username, Application, Symptom, Cause, Class, Method, CodeBlock, LineNoStart, LineNoEnd, Language FROM BugTable WHERE BugId = " + txtBugId.Text;
+            String selBugCommand = "SELECT Username, Application, Symptom, Cause, Class, Method, CodeBlock, LineNoStart, LineNoEnd, Language, Fixed FROM BugTable WHERE BugId = " + txtBugId.Text;
             SqlCommand sqlBugCommand = new SqlCommand(selBugCommand, mainConnection);
 
             String selVerCommand = "SELECT EntryNo, Username, EntryDateTime FROM VersionTable WHERE BugId = " + txtBugId.Text;
@@ -48,7 +50,7 @@ namespace ASEABugTracker
                 
                 while (bugSqlDataReader.Read())
                 {
-                    txtUsername.Text = bugSqlDataReader.GetString(0);
+                    if (bugSqlDataReader.GetString(0) == Login.sessionUsername) { submitAuditToolStripMenuItem.Enabled = true; buttonFix.Enabled = true; }
                     txtApplication.Text = bugSqlDataReader.GetString(1);
                     txtSymptom.Text = bugSqlDataReader.GetString(2);
                     txtCause.Text = bugSqlDataReader.GetString(3);
@@ -58,6 +60,8 @@ namespace ASEABugTracker
                     txtLineNoStart.Text = bugSqlDataReader.GetInt32(7).ToString();
                     txtLineNoEnd.Text = bugSqlDataReader.GetInt32(8).ToString();
                     txtLanguage.Text = bugSqlDataReader.GetString(9);
+                    if (bugSqlDataReader.GetBoolean(10) == false) { labelFix.Text = "Unfixed"; }
+                    else { labelFix.Text = "Fixed"; submitAuditToolStripMenuItem.Enabled = true; }
                 }
 
                 bugSqlDataReader.Close();
@@ -67,18 +71,15 @@ namespace ASEABugTracker
 
                 while (verSqlDataReader.Read())
                 {
-
-                    listBoxInput.Items.Add("["+txtBugId.Text+"."+verSqlDataReader["EntryNo"]+"] created by " + verSqlDataReader["Username"]+" on "+ verSqlDataReader["EntryDateTime"]);
-
+                    if (verSqlDataReader.GetInt32(0)==0) { listBoxInput.Items.Add("[source_code] created by " + verSqlDataReader["Username"] + " on " + verSqlDataReader["EntryDateTime"]);}
+                    else {listBoxInput.Items.Add("[" + txtBugId.Text + "." + verSqlDataReader["EntryNo"] + "] created by " + verSqlDataReader["Username"] + " on " + verSqlDataReader["EntryDateTime"]);}                   
                 }
                 verSqlDataReader.Close();
             }
 
             catch (SqlException ex)
             {
-
                 MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
 
         }
@@ -99,7 +100,7 @@ namespace ASEABugTracker
         }
 
 
-        public void InsertRecord(String isfixedbool, String sqlFormatDateTimeNow, String alteredcode, String username, String bugid, String entryno, String commandString)
+        public void InsertRecord(String sqlFormatDateTimeNow, String alteredcode, String username, String bugid, String entryno, String commandString)
         {
             try
             {
@@ -108,7 +109,6 @@ namespace ASEABugTracker
                 C:\Users\Admin\Documents\ASEABugTrackDB.mdf;");
                 mainConnection.Open();
                 SqlCommand cmdInsert = new SqlCommand(commandString, mainConnection);
-                cmdInsert.Parameters.AddWithValue("@Fixed", isfixedbool);
                 cmdInsert.Parameters.AddWithValue("@EntryDateTime", sqlFormatDateTimeNow);
                 cmdInsert.Parameters.AddWithValue("@AlteredCode", alteredcode);
                 cmdInsert.Parameters.AddWithValue("@Username", username);
@@ -121,6 +121,26 @@ namespace ASEABugTracker
                 MessageBox.Show(bugid + "." + entryno + " .." + ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        
+        public void InsertFixRecord(bool fixBool, String commandFixed)
+        {
+            try
+            {
+                mainConnection = new SqlConnection
+                (@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = 
+                C:\Users\Admin\Documents\ASEABugTrackDB.mdf;");
+                mainConnection.Open();
+                SqlCommand cmdFixed = new SqlCommand(commandFixed, mainConnection);
+                cmdFixed.Parameters.AddWithValue("@Fixed", fixBool);
+                cmdFixed.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(fixBool + "." + " .." + ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
 
         private void txtCode_Load(object sender, EventArgs e)
         {
@@ -190,6 +210,7 @@ namespace ASEABugTracker
                 MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
+            txtCode_Load(null,e);
         }
 
         private void submitAuditToolStripMenuItem_Click(object sender, EventArgs e)
@@ -197,10 +218,42 @@ namespace ASEABugTracker
             if (CheckInput())
             {
 
-                String commandString = "INSERT INTO VersionTable(Fixed, EntryDateTime, AlteredCode, Username, BugId, EntryNo) VALUES (@Fixed, @EntryDateTime, @AlteredCode, @Username, @BugId, @EntryNo)";
+                String commandString = "INSERT INTO VersionTable(EntryDateTime, AlteredCode, Username, BugId, EntryNo) VALUES (@EntryDateTime, @AlteredCode, @Username, @BugId, @EntryNo)";
 
-                InsertRecord("", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), txtCode.Text, Login.sessionUsername, txtBugId.Text, listBoxInput.Items.Count.ToString(), commandString);
+                InsertRecord(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), txtCode.Text, Login.sessionUsername, txtBugId.Text, listBoxInput.Items.Count.ToString(), commandString);
                 Populate();
+            }
+        }
+
+        private void buttonFix_Click(object sender, EventArgs e)
+        {
+            if (labelFix.Text == "Unfixed")
+            {
+                DialogResult dialogResult = MessageBox.Show("Is the bug fixed so no more alteration submissions may be made?", "Change Bug's Unfixed Status", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    submitAuditToolStripMenuItem.Enabled = false;
+                    String commandFixed = "UPDATE BugTable SET Fixed = 1 WHERE BugId = " + txtBugId.Text;
+                    InsertFixRecord(true, commandFixed);
+                    labelFix.Text = "Fixed";
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                }
+            }
+            else
+            {
+                DialogResult dialogResult = MessageBox.Show("Would you like to reopen the bug so alteration submissions may be made?", "Change Bug's Fixed Status", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    submitAuditToolStripMenuItem.Enabled = true;
+                    String commandFixed = "UPDATE BugTable SET Fixed = 0 WHERE BugId = " + txtBugId.Text;
+                    InsertFixRecord(false, commandFixed);
+                    labelFix.Text = "Unfixed";
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                }
             }
         }
     }

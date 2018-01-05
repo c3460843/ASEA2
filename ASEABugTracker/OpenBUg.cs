@@ -28,7 +28,46 @@ namespace ASEABugTracker
                 (@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = 
                 C:\Users\Admin\Documents\ASEABugTrackDB.mdf;");
 
-            String selcmd = "SELECT BugId, Application, Username FROM BugTable";
+            String selcmd="";
+
+            int caseSwitch=1;                                                                                                                      //001
+            if (!checkBoxDisplayOwn.Checked && !checkBoxDisplayUnfixed.Checked && comboBoxLanguage.Text != "All Languages") { caseSwitch = 2; };   //000
+            if (!checkBoxDisplayOwn.Checked &&  checkBoxDisplayUnfixed.Checked && comboBoxLanguage.Text != "All Languages") { caseSwitch = 3; };   //010
+            if (!checkBoxDisplayOwn.Checked &&  checkBoxDisplayUnfixed.Checked && comboBoxLanguage.Text == "All Languages") { caseSwitch = 4; };   //011
+            if ( checkBoxDisplayOwn.Checked && !checkBoxDisplayUnfixed.Checked && comboBoxLanguage.Text != "All Languages") { caseSwitch = 5; };   //100
+            if ( checkBoxDisplayOwn.Checked && !checkBoxDisplayUnfixed.Checked && comboBoxLanguage.Text == "All Languages") { caseSwitch = 6; };   //101
+            if ( checkBoxDisplayOwn.Checked &&  checkBoxDisplayUnfixed.Checked && comboBoxLanguage.Text != "All Languages") { caseSwitch = 7; };   //110
+            if ( checkBoxDisplayOwn.Checked &&  checkBoxDisplayUnfixed.Checked && comboBoxLanguage.Text == "All Languages") { caseSwitch = 8; };   //111
+           
+            switch (caseSwitch)
+            {
+                case 1:
+                    selcmd = "SELECT BugId, Application, Username, Language, Fixed FROM BugTable";
+                    break;
+                case 2:
+                    selcmd = "SELECT BugId, Application, Username, Language, Fixed FROM BugTable WHERE Language = '" +comboBoxLanguage.Text +"'";
+                    break;
+                case 3:
+                    selcmd = "SELECT BugId, Application, Username, Language, Fixed FROM BugTable WHERE Fixed = 0 AND Language = '" +comboBoxLanguage.Text + "'";
+                    break;
+                case 4:
+                    selcmd = "SELECT BugId, Application, Username, Language, Fixed FROM BugTable WHERE Fixed = 0";
+                    break;
+                case 5:
+                    selcmd = "SELECT BugId, Application, Username, Language, Fixed FROM BugTable WHERE Username = '" + Login.sessionUsername + "' AND Language = '" + comboBoxLanguage.Text + "'";
+                    break;
+                case 6:
+                    selcmd = "SELECT BugId, Application, Username, Language, Fixed FROM BugTable WHERE Username = '" + Login.sessionUsername + "'";
+                    break;
+                case 7:
+                    selcmd = "SELECT BugId, Application, Username, Language, Fixed FROM BugTable WHERE Fixed = 0 AND Username = '" + Login.sessionUsername +"' AND Language = '" +comboBoxLanguage.Text + "'";
+                    break;
+                case 8:
+                    selcmd = "SELECT BugId, Application, Username, Language, Fixed FROM BugTable WHERE Fixed = 0 AND Username = '" + Login.sessionUsername + "'";
+                    break;
+            }
+
+            
 
             SqlCommand mySqlCommand = new SqlCommand(selcmd, obConnection);
 
@@ -42,8 +81,7 @@ namespace ASEABugTracker
 
                 while (mySqlDataReader.Read())
                 {
-
-                    listBoxOpen.Items.Add(mySqlDataReader["BugId"] + "." + mySqlDataReader["Application"] + "." + mySqlDataReader["Username"]); 
+                        listBoxOpen.Items.Add(mySqlDataReader["BugId"] + "." + mySqlDataReader["Application"] + "." + mySqlDataReader["Username"]);
                 }
             }
 
@@ -66,12 +104,28 @@ namespace ASEABugTracker
             Main session = new Main();
             session.Show();
 
+
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             obConnection.Close();
             this.Hide();
+        }
+
+        private void checkBoxDisplayOwn_CheckedChanged(object sender, EventArgs e)
+        {
+            populateOpenList();
+        }
+
+        private void checkBoxDisplayUnfixed_CheckedChanged(object sender, EventArgs e)
+        {
+            populateOpenList();
+        }
+
+        private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            populateOpenList();
         }
     }
 }
