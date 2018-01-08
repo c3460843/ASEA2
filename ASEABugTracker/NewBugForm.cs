@@ -1,34 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ASEABugTracker
 {
     public partial class NewBugForm : Form
     {
+        /// <summary>
+        /// <see cref="SqlConnection"/> used for the <see cref="ASEABugTracker.NewBugForm"/> form.
+        /// </summary>
         SqlConnection newBugConnection;
 
+        /// <summary>
+        ///  Entry point for the <see cref="ASEABugTracker.NewBugForm"/> form.
+        /// </summary>
         public NewBugForm()
         {
             InitializeComponent();
             txtAuthorNew.Text = Login.sessionUsername;
         }
 
-        public void insertBugRecord(String application, String symptom, String cause, String tclass, String method, String code, String linenostart, String linenoend, String language, String commandString)
+        /// <summary>
+        ///  Tries to connect to the database (<see cref="newBugConnection"/>) for the 'BugTable', then tries to insert parameters by <see cref="SqlCommand"/>, then tries to execute.
+        /// </summary>
+        /// <param name="application">Used to specify the application which is contained in the bug.</param>
+        /// <param name="symptom">Used to specify the suggested symptom of the bug by the author.</param>
+        /// <param name="cause">Used to specify the suggested cause of the bug by the author.</param>
+        /// <param name="tclass">Used to identify the class that contains the bug by the author.</param>
+        /// <param name="method">Used to identify the method that contains the bug by the author.</param>
+        /// <param name="code">Used to encapsulate the whole code which contains the bug by the author.</param>
+        /// <param name="linenostart">Used to identify the starting line number, tracking where in the code the bug is by the author.</param>
+        /// <param name="linenoend">Used to identify the end line number, tracking where in the code the bug is by the author.</param>
+        /// <param name="language">Used to identify which programming language the code containing the bug by the author is.</param>
+        /// <param name="commandString">Used to indicate the <see cref="string"/> which inserts the parameters contained within <see cref="InsertBugRecord"/> to SQL format.</param>
+        public void InsertBugRecord(String application, String symptom, String cause, String tclass, String method, String code, String linenostart, String linenoend, String language, String commandString)
         {
-
             try
             {
                 newBugConnection = new SqlConnection
                 (@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = 
-                C:\Users\Admin\Documents\ASEABugTrackDB.mdf;");
+                |DataDirectory|\ASEABugTrackDB.mdf;");
                 newBugConnection.Open();
                 SqlCommand cmdInsert = new SqlCommand(commandString, newBugConnection);
                 cmdInsert.Parameters.AddWithValue("@Username", Login.sessionUsername);
@@ -51,13 +62,25 @@ namespace ASEABugTracker
             }
         }
 
-        public void insertVerRecord(String isfixedbool, String sqlFormatDateTimeNow, String alteredcode, String username, int bugid, String entryno, String commandString)
+
+        /// <summary>
+        ///  Tries to connect to the database (<see cref="newBugConnection"/>), then tries to insert parameters by <see cref="SqlCommand"/>, then tries to execute. 
+        ///  This is to make sure the first 'version' is the original author of the bug report.
+        /// </summary>
+        /// <param name="isfixedbool">Used to identify whether the bug is fixed/unfixed (<see cref="bool"/>), is always '0'(unfixed) in this instance.</param>
+        /// <param name="sqlFormatDateTimeNow">Used to specify <see cref="DateTime"/> formatted for SQL.</param>
+        /// <param name="alteredcode">Used to indicate the block of original code (<see cref="txtCode"/>), (unedited for original version).</param>
+        /// <param name="username">Used to indicate the current session user's username (<see cref="Login.sessionUsername"/>).</param>
+        /// <param name="bugid">Used to indicate the current session bug's idenfication (<see cref="txtBugId"/>).</param>
+        /// <param name="entryno">Used to indicate current entry number which is equal to the count of the number of edit entries, is always '0'(first entry) in this instance.</param>
+        /// <param name="commandString">Used to indicate the <see cref="string"/> which inserts the parameters contained within <see cref="InsertVerRecord"/> to SQL format.</param>
+        public void InsertVerRecord(String isfixedbool, String sqlFormatDateTimeNow, String alteredcode, String username, int bugid, String entryno, String commandString)
         {
             try
             {
                 newBugConnection = new SqlConnection
                 (@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = 
-                C:\Users\Admin\Documents\ASEABugTrackDB.mdf;");
+                |DataDirectory|\ASEABugTrackDB.mdf;");
                 newBugConnection.Open();
                 SqlCommand cmdInsert = new SqlCommand(commandString, newBugConnection);
                 cmdInsert.Parameters.AddWithValue("@Fixed", isfixedbool);
@@ -74,7 +97,11 @@ namespace ASEABugTracker
             }
         }
 
-        public bool checkInputs()
+        /// <summary>
+        ///  Checks that all user's input (<see cref="txtApplicationNew"/>, <see cref="txtSymptomNew"/>, <see cref="txtCauseNew"/>, <see cref="txtClassNew"/>, 
+        ///  <see cref="txtMethodNew"/>, <see cref="txtCodeNew"/>, <see cref="txtLineNoStartNew"/>, <see cref="txtLineNoEndNew"/>) are not empty or null for when a new bug submission is made.
+        /// </summary>  
+        public bool CheckInputs()
         {
             bool rtnvalue = true;
 
@@ -92,24 +119,27 @@ namespace ASEABugTracker
                 MessageBox.Show("Error: Please check your inputs");
                 rtnvalue = false;
             }
-
             return (rtnvalue);
         }
 
-        private void buttonNewBug_Click(object sender, EventArgs e)
+        /// <summary>
+        ///  If <see cref="CheckInputs"/> is passed, inserts parameters (<see cref="InsertBugRecord"/>) to the database using SQL 'INSERT' statement (selBugIdCommand), 
+        ///  then inserts parameters (<see cref="InsertVerRecord"/>) to the database using SQL 'INSERT' statement (selVerIdCommand) for the first 'Version' entry, when <see cref="buttonNewBug"/> is clicked.
+        /// </summary> 
+        private void ButtonNewBug_Click(object sender, EventArgs e)
         {
-            if (checkInputs())
+            if (CheckInputs())
             {
                 String bugCommandString = "INSERT INTO BugTable(Username, Application, Symptom, Cause, Class, Method, CodeBlock, LineNoStart, LineNoEnd, Language) VALUES (@Username, @Application, @Symptom, @Cause, @Class, @Method, @Code, @LineNoStart, @LineEndStart, @Language)";
-                insertBugRecord(txtApplicationNew.Text, txtSymptomNew.Text, txtCauseNew.Text, txtClassNew.Text, txtMethodNew.Text, txtCodeNew.Text, txtLineNoStartNew.Text, txtLineNoEndNew.Text, comboBoxLanguage.SelectedItem.ToString(), bugCommandString);
-                
+                InsertBugRecord(txtApplicationNew.Text, txtSymptomNew.Text, txtCauseNew.Text, txtClassNew.Text, txtMethodNew.Text, txtCodeNew.Text, txtLineNoStartNew.Text, txtLineNoEndNew.Text, comboBoxLanguage.SelectedItem.ToString(), bugCommandString);
 
+                //Gets 'BugId' from latest users submission (above), this way is used because database could theoretically be used simultaneously where consecutive IDs could be mismatched between users.
                 String selBugIdCommand = "SELECT TOP 1 BugId FROM BugTable WHERE Username = '" + Login.sessionUsername +"' ORDER BY BugId DESC";
                 SqlCommand sqlBugIdCommand = new SqlCommand(selBugIdCommand, newBugConnection);
 
                 SqlDataReader bugIdSqlDataReader = sqlBugIdCommand.ExecuteReader();
 
-                int bugId =0;
+                int bugId =0;   //Obligatory value assigned.
                 while (bugIdSqlDataReader.Read())
                 {
                     bugId = bugIdSqlDataReader.GetInt32(0);
@@ -118,13 +148,18 @@ namespace ASEABugTracker
                 bugIdSqlDataReader.Close();
                             
                 String verCommandString = "INSERT INTO VersionTable(Fixed, EntryDateTime, AlteredCode, Username, BugId, EntryNo) VALUES (@Fixed, @EntryDateTime, @AlteredCode, @Username, @BugId, @EntryNo)";
-                insertVerRecord("0", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), txtCodeNew.Text, Login.sessionUsername, bugId, "0", verCommandString);
+                InsertVerRecord("0", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), txtCodeNew.Text, Login.sessionUsername, bugId, "0", verCommandString);
+                //First version (0) is always original code and needs to be inserted into database so it can be shown in audit list along side later edits.
+
                 newBugConnection.Close();
                 this.Close();
             }  
         }
 
-        private void buttonNBCancel_Click(object sender, EventArgs e)
+        /// <summary>
+        ///  Coses the current <see cref="NewBugForm"/>, when <see cref="buttonNBCancel"/> is clicked.
+        /// </summary>
+        private void ButtonNBCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }

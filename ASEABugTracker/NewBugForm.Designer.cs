@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewBugForm));
             this.labelHyphen1 = new System.Windows.Forms.Label();
             this.labelLineTitleNew = new System.Windows.Forms.Label();
             this.labelCauseNew = new System.Windows.Forms.Label();
@@ -210,7 +211,7 @@
             this.buttonNewBug.TabIndex = 45;
             this.buttonNewBug.Text = "Submit";
             this.buttonNewBug.UseVisualStyleBackColor = true;
-            this.buttonNewBug.Click += new System.EventHandler(this.buttonNewBug_Click);
+            this.buttonNewBug.Click += new System.EventHandler(this.ButtonNewBug_Click);
             // 
             // txtCodeNew
             // 
@@ -251,7 +252,7 @@
             this.buttonNBCancel.TabIndex = 49;
             this.buttonNBCancel.Text = "Cancel";
             this.buttonNBCancel.UseVisualStyleBackColor = true;
-            this.buttonNBCancel.Click += new System.EventHandler(this.buttonNBCancel_Click);
+            this.buttonNBCancel.Click += new System.EventHandler(this.ButtonNBCancel_Click);
             // 
             // comboBoxLanguage
             // 
@@ -310,14 +311,14 @@
             this.Controls.Add(this.labelApplicationNew);
             this.Controls.Add(this.txtApplicationNew);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(640, 480);
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "NewBugForm";
             this.Padding = new System.Windows.Forms.Padding(5);
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "New Bug Submission";
+            this.Text = "New";
             this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();

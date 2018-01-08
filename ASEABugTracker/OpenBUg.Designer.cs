@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OpenBug));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOpen = new System.Windows.Forms.Button();
             this.checkBoxDisplayOwn = new System.Windows.Forms.CheckBox();
@@ -44,7 +45,7 @@
             this.buttonCancel.TabIndex = 0;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // buttonOpen
             // 
@@ -54,7 +55,7 @@
             this.buttonOpen.TabIndex = 1;
             this.buttonOpen.Text = "Open";
             this.buttonOpen.UseVisualStyleBackColor = true;
-            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
+            this.buttonOpen.Click += new System.EventHandler(this.ButtonOpen_Click);
             // 
             // checkBoxDisplayOwn
             // 
@@ -65,7 +66,7 @@
             this.checkBoxDisplayOwn.TabIndex = 4;
             this.checkBoxDisplayOwn.Text = "Display only my own bug submissions";
             this.checkBoxDisplayOwn.UseVisualStyleBackColor = true;
-            this.checkBoxDisplayOwn.CheckedChanged += new System.EventHandler(this.checkBoxDisplayOwn_CheckedChanged);
+            this.checkBoxDisplayOwn.CheckedChanged += new System.EventHandler(this.CheckBoxDisplayOwn_CheckedChanged);
             // 
             // checkBoxDisplayUnfixed
             // 
@@ -76,7 +77,7 @@
             this.checkBoxDisplayUnfixed.TabIndex = 5;
             this.checkBoxDisplayUnfixed.Text = "Display only unfixed bugs";
             this.checkBoxDisplayUnfixed.UseVisualStyleBackColor = true;
-            this.checkBoxDisplayUnfixed.CheckedChanged += new System.EventHandler(this.checkBoxDisplayUnfixed_CheckedChanged);
+            this.checkBoxDisplayUnfixed.CheckedChanged += new System.EventHandler(this.CheckBoxDisplayUnfixed_CheckedChanged);
             // 
             // listBoxOpen
             // 
@@ -103,7 +104,7 @@
             this.comboBoxLanguage.Size = new System.Drawing.Size(196, 21);
             this.comboBoxLanguage.TabIndex = 8;
             this.comboBoxLanguage.Text = "All Languages";
-            this.comboBoxLanguage.SelectedIndexChanged += new System.EventHandler(this.comboBoxLanguage_SelectedIndexChanged);
+            this.comboBoxLanguage.SelectedIndexChanged += new System.EventHandler(this.ComboBoxLanguage_SelectedIndexChanged);
             // 
             // OpenBug
             // 
@@ -117,10 +118,11 @@
             this.Controls.Add(this.buttonOpen);
             this.Controls.Add(this.buttonCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "OpenBug";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Open";
             this.ResumeLayout(false);
             this.PerformLayout();
 

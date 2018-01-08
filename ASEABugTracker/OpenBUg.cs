@@ -1,35 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ASEABugTracker
 {
     public partial class OpenBug : Form
     {
+        /// <summary>
+        /// <see cref="SqlConnection"/> used for the <see cref="ASEABugTracker.OpenBug"/> form.
+        /// </summary>
         SqlConnection obConnection;
+
+        /// <summary>
+        ///  Used externally to identify current opened bug.
+        /// </summary>
         public static string sessionOpenBug;
 
+
+        /// <summary>
+        ///  Entry point for the <see cref="ASEABugTracker.OpenBug"/> form.
+        /// </summary>
         public OpenBug()
         {
             InitializeComponent();
-            populateOpenList();
+            PopulateOpenList();
         }
 
-        private void populateOpenList()
+        /// <summary>
+        ///  Connects to the database (<see cref="obConnection"/>) and selects, then attempts to read SQL data (<see cref="SqlDataReader"/>) that populates the list 
+        ///  in the <see cref="OpenBug"/> form.
+        /// </summary>
+        private void PopulateOpenList()
         {
             obConnection = new SqlConnection
                 (@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = 
-                C:\Users\Admin\Documents\ASEABugTrackDB.mdf;");
+                |DataDirectory|\ASEABugTrackDB.mdf;");
+            String selcmd=""; //Obligatory empty string.
 
-            String selcmd="";
-
+            //Binary numbers in comments used to help identify combination of on/off filters for use in switch statement.>>>
             int caseSwitch=1;                                                                                                                      //001
             if (!checkBoxDisplayOwn.Checked && !checkBoxDisplayUnfixed.Checked && comboBoxLanguage.Text != "All Languages") { caseSwitch = 2; };   //000
             if (!checkBoxDisplayOwn.Checked &&  checkBoxDisplayUnfixed.Checked && comboBoxLanguage.Text != "All Languages") { caseSwitch = 3; };   //010
@@ -66,9 +74,7 @@ namespace ASEABugTracker
                     selcmd = "SELECT BugId, Application, Username, Language, Fixed FROM BugTable WHERE Fixed = 0 AND Username = '" + Login.sessionUsername + "'";
                     break;
             }
-
-            
-
+                        
             SqlCommand mySqlCommand = new SqlCommand(selcmd, obConnection);
 
             try
@@ -81,7 +87,7 @@ namespace ASEABugTracker
 
                 while (mySqlDataReader.Read())
                 {
-                        listBoxOpen.Items.Add(mySqlDataReader["BugId"] + "." + mySqlDataReader["Application"] + "." + mySqlDataReader["Username"]);
+                        listBoxOpen.Items.Add(mySqlDataReader["BugId"] + "." + mySqlDataReader["Application"] + "." + mySqlDataReader["Username"]);     //Populates the list with necessary information to find required bug.
                 }
             }
 
@@ -93,39 +99,56 @@ namespace ASEABugTracker
             }
         }
 
-        private void buttonOpen_Click(object sender, EventArgs e)
+        /// <summary>
+        ///  Creates an <see cref="Array"/> from the list (<see cref="listBoxOpen"/>) and splits it, getting the first entry which is the 'BugId' setting it as <see cref="sessionOpenBug"/>, 
+        ///  hides the <see cref="OpenBug"/> form and any previously active <see cref="Main"/> form and begins a new <see cref="Main"/> form 'session', when <see cref="ButtonOpen_Click"/> is clicked.
+        /// </summary>
+        private void ButtonOpen_Click(object sender, EventArgs e)
+        {
+            if (listBoxOpen.SelectedIndex != -1)
+            {
+                obConnection.Close();
+                String selectedItem = listBoxOpen.SelectedItem.ToString();      //Creates string from the bug selected from the list.
+                String[] seletectItemArray = selectedItem.Split('.');           //String is split from delimiter used in SQL data read.
+                sessionOpenBug = seletectItemArray[0];                          //First index is the unique 'BugId' which is public and used in other forms.
+                this.Hide();
+                Main.ActiveForm.Hide();
+                Main session = new Main();
+                session.Show();                                                 //New form displayed using unique 'BugId' (sessionOpenBug).
+            }
+        }
+
+        /// <summary>
+        ///  Closes the <see cref="SqlConnection"/> and current <see cref="OpenBug"/>, when <see cref="buttonCancel"/> is clicked.
+        /// </summary>
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             obConnection.Close();
-            String selectedItem = listBoxOpen.SelectedItem.ToString();
-            String[] seletectItemArray = selectedItem.Split('.');
-            sessionOpenBug = seletectItemArray[0];
-            this.Hide();
-            Main.ActiveForm.Hide();
-            Main session = new Main();
-            session.Show();
-
-
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            obConnection.Close();
             this.Hide();
         }
 
-        private void checkBoxDisplayOwn_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        ///  Repopulates the list (<see cref="PopulateOpenList"/>) , when <see cref="checkBoxDisplayOwn"/> is clicked.
+        /// </summary>
+        private void CheckBoxDisplayOwn_CheckedChanged(object sender, EventArgs e)
         {
-            populateOpenList();
+            PopulateOpenList();
         }
 
-        private void checkBoxDisplayUnfixed_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        ///  Repopulates the list (<see cref="PopulateOpenList"/>) , when <see cref="checkBoxDisplayUnfixed"/> is clicked.
+        /// </summary>
+        private void CheckBoxDisplayUnfixed_CheckedChanged(object sender, EventArgs e)
         {
-            populateOpenList();
+            PopulateOpenList();
         }
 
-        private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        ///  Repopulates the list (<see cref="PopulateOpenList"/>) , when <see cref="comboBoxLanguage"/> is clicked.
+        /// </summary>
+        private void ComboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            populateOpenList();
+            PopulateOpenList();
         }
     }
 }
